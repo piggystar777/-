@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>蛇年新春祝福生成器</title>
+    <style>
+        /* 合并的CSS样式 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, '微软雅黑', sans-serif;
+            background: linear-gradient(45deg, #ff4d4d, #ffd700);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            border: 2px solid #c70000;
+            margin: 10px;
+        }
+
+        h1 {
+            color: #c70000;
+            font-size: 2.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin: 15px 0;
+            position: relative;
+        }
+
+        h1::after {
+            content: '🐍';
+            position: absolute;
+            right: -35px;
+            animation: snake 2s ease-in-out infinite;
+        }
+
+        input {
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            margin: 20px 0;
+            width: 80%;
+            max-width: 280px;
+            text-align: center;
+            background: #fff;
+            -webkit-appearance: none;
+        }
+
+        button {
+            background: #c70000;
+            color: white;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            min-width: 120px;
+            min-height: 44px;
+        }
+
+        button:active {
+            background: #ff4d4d;
+            transform: scale(0.98);
+        }
+
+        #blessing {
+            margin: 25px 0;
+            padding: 18px;
+            background: #fff9e6;
+            border-radius: 10px;
+            border-left: 4px solid #ffd700;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .deco {
+            font-size: 2.5rem;
+            margin: 10px 0;
+            color: #c70000;
+            line-height: 1.2;
+        }
+
+        @keyframes snake {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 移动端优化 */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+                margin: 10px 0;
+            }
+            
+            h1::after {
+                right: -30px;
+                font-size: 0.8em;
+            }
+
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+
+            input {
+                font-size: 0.95rem;
+                padding: 10px;
+                width: 85%;
+            }
+
+            button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+
+            .deco {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="deco">🎉🏮🐉</div>
+        <h1>蛇年新春祝福生成器</h1>
+        <input type="text" id="name" placeholder="请输入您的姓名" inputmode="text">
+        <br>
+        <button onclick="generateBlessing()">生成祝福</button>
+        <div id="blessing"></div>
+        <div class="deco">🏮🎊🐍</div>
+    </div>
+
+    <script>
+        function generateBlessing() {
+            const name = document.getElementById('name').value.trim();
+            const blessingElement = document.getElementById('blessing');
+            
+            if (!name) {
+                alert("请输入您的姓名");
+                return;
+            }
+
+            // 触摸设备震动反馈
+            if ('vibrate' in navigator) {
+                navigator.vibrate(50);
+            }
+
+            const blessings = [
+                `${name}朋友：金蛇狂舞辞旧岁，骏马奔腾迎新春！愿您在新的一年里，事业如蛇添翼，生活金蛇呈祥！`,
+                `恭祝${name}：蛇年行大运，万事皆顺心！财源如蛇舞，福气满门庭！`,
+                `${name}新春快乐！愿您蛇年吉祥，身体安康，心想事成，幸福绵长！`,
+                `给${name}拜年啦！一顺百顺事事顺，千好万好年年好，蛇年好运挡不住！`,
+                `${name}，祝您蛇年：🐍跃龙门步步高，💰如蛇舞滚滚来！`
+            ];
+
+            const randomIndex = Math.floor(Math.random() * blessings.length);
+            blessingElement.innerHTML = blessings[randomIndex];
+            blessingElement.style.display = 'block';
+            
+            // 自动滚动到祝福语位置
+            blessingElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
